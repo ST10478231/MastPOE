@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@react-native-picker/picker": "^2.11.1",
-    "expo": "54.0.19",
+    "expo": "^54.0.19",
     "expo-asset": "~12.0.9",
     "expo-font": "~14.0.9",
     "expo-splash-screen": "~31.0.10",
