@@ -4,15 +4,18 @@ import { View, Text, ScrollView, StyleSheet, ImageBackground, TouchableOpacity, 
 
 import { Picker } from '@react-native-picker/picker';
 
+// -- The courses catergories---
 export const COURSES = ['All', 'Starters', 'Mains', 'Desserts', 'Platters'];
 
+// Github Co - pilot(2025) says this is used to generate a short random id for newly created menu items.
 export const generateId = (): string => Math.random().toString(36).substring(2, 9);
 
+// Image URL used when no local image from the user is provided.
 export const PLACEHOLDER_IMAGE_URL = 'https://via.placeholder.com/100/f0f0f0/666666?text=No+Image';
 
+// ReactNativeForProffesionals(2025) says this is how to create a menu with all its contents in id form
 const INITIAL_MENU_ITEMS = [
 
-  
   { id: '1', dishName: 'Roasted Lobster Tails', description: 'Two succulent lobster tails, broiled golden brown with a savory blend of melted butter.', price: 379.99, course: 'Mains', image: require('./assets/Lobster.jpg') },
 
   { id: '2', dishName: 'Marry me Shrimp Pasta', description: 'This Marry Me shrimp pasta is filled with tender, seasoned shrimp, a rich, creamy sun-dried tomato sauce, and al dente penne pasta', price: 269.99, course: 'Mains', image: require('./assets/MarryMeShrimpPasta.jpeg') },
@@ -25,7 +28,7 @@ const INITIAL_MENU_ITEMS = [
 
   { id: '6', dishName: 'Recette Paella', description: 'Sofrito, toasted rice, saffron broth, chicken, shrimp, mussels, and peas.', price: 315.99, course: 'Mains', image: require('./assets/RecettePaella.jpeg') },
 
-  { id: '7', dishName: 'Classic Fish and Chips', description: 'Extra crispy exterior  with a combination of all-purpose flour, rice flour, beer and a bit of vodka.', price: 189.99, course: 'Mains', image: require('./assets/ClassicFishandChips.jpeg') },
+  { id: '7', dishName: 'Classic Fish and Chips', description: 'Extra crispy exterior  \u00A0with a combination of all-purpose flour, rice flour, beer and a bit of vodka.', price: 189.99, course: 'Mains', image: require('./assets/ClassicFishandChips.jpeg') },
 
   { id: '8', dishName: 'Linguine and Clams', description: 'Buttery sauce with garlic clams, white wine and sweet tomatoes infused with pasta', price: 255.99, course: 'Mains', image: require('./assets/LinguineandClams.jpeg') },
 
@@ -86,6 +89,7 @@ const INITIAL_MENU_ITEMS = [
 ];
 
 
+// Declaring the varibles of each interface
 interface MenuItem {
   id: string;
   dishName: string;
@@ -96,7 +100,11 @@ interface MenuItem {
   price: number;
 }
 
-// Updated MenuItemCard to accept an onRemove prop
+// Makes all items have a card 
+// ReactNativeForProffesionals(2025) says onRemove is used to delete items from the list.
+// The Image source prefers a local image and if not recived will use a placeholder
+// menuItemAction is used to implemet rands to code
+// menuItemDescription used to output the descriptions of each meal
 const MenuItemCard = ({ item, onRemove }: { item: MenuItem, onRemove: (id: string) => void }) => (
   <TouchableOpacity style={styles.menuItemCard}>
     <Image
@@ -109,8 +117,8 @@ const MenuItemCard = ({ item, onRemove }: { item: MenuItem, onRemove: (id: strin
         {item.description}
       </Text>
       <View style={styles.menuItemFooter}>
-        <Text style={styles.menuItemPrice}>R{item.price.toFixed(2)}</Text>
-        <View style={styles.menuItemActions}>
+        <Text style={styles.menuItemPrice}>R{item.price.toFixed(2)}</Text> 
+                <View style={styles.menuItemActions}>
           <TouchableOpacity style={[styles.actionButton, styles.removeButton]} onPress={() => onRemove(item.id)}>
             <Text style={styles.removeButtonText}>Remove</Text>
           </TouchableOpacity>
@@ -123,7 +131,7 @@ const MenuItemCard = ({ item, onRemove }: { item: MenuItem, onRemove: (id: strin
   </TouchableOpacity>
 );
 
-// 2. Add New Item Form (Matches Image 1 Style)
+// Github Co - piolit says (2025) AddItemForm  controlled form used by the chef to create new menu items. It keeps local state for each input and calls `onSave` with a MenuItem object when the form is submitted.
 interface AddItemFormProps {
   onSave: (item: MenuItem) => void;
 }
@@ -134,6 +142,8 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
   const [price, setPrice] = useState('');
   const [imageUrl, setImageUrl] = useState(PLACEHOLDER_IMAGE_URL);
 
+  // Validate and package form inputs into a MenuItem, then call parent
+  // `onSave`. After saving the form is reset to its initial state.
   const handleSave = () => {
     if (!dishName || !price) {
       Alert.alert("Required Fields", "Dish Name and Price are required.");
@@ -151,7 +161,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
     
     onSave(newItem);
     
-    // Reset form for next entry (Feature 5: Chef can add all menu items to the list)
+    // Reset form for adding menus to add more
     setDishName('');
     setDescription('');
     setCourse(COURSES[1]);
@@ -159,26 +169,30 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
     setImageUrl(PLACEHOLDER_IMAGE_URL);
   };
   
-  // Mock function for image selection to match the style
+  // Mock function for image selection to match the style of the meal
   const pickImage = () => {
     const tempImg = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
     setImageUrl(imageUrl === PLACEHOLDER_IMAGE_URL ? tempImg : PLACEHOLDER_IMAGE_URL);
   };
 
+  // Render the add-item form.
+  // - Image area is tappable and toggles a mock image URL (replace with
+  //   an image picker integration in the future).
+  // - Inputs are controlled and stored in local state.
+  // - The picker pulls from the COURSES constant (skips 'All').
   return (
     <View style={styles.formContainer}>
       <Text style={styles.formHeader}>New Menu Item </Text>
 
-      {/* Input Card - Based on Image 1 */}
       <View style={styles.inputCard}>
-        {/* Image Placeholder */}
+        {/* Image Placeholder this is used to toggle a mock image */}
         <TouchableOpacity onPress={pickImage} style={styles.inputImagePlaceholder}>
           <Image source={{ uri: imageUrl }} style={styles.inputImage} />
           <Text style={styles.inputImageText}>Add image</Text>
         </TouchableOpacity>
         
         <View style={styles.inputGroup}>
-          {/* Dish Name (Feature 1a) */}
+          {/* Dish Name area for the chefs input */}
           <TextInput
             placeholder="Add name"
             placeholderTextColor={'#d9d9d9'}
@@ -186,7 +200,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
             value={dishName}
             onChangeText={setDishName}
           />
-          {/* Description (Feature 1b) */}
+          {/* Description area for the chefs input */}
           <TextInput
             placeholder="Add Description..."
             placeholderTextColor={'#d9d9d9'}
@@ -196,7 +210,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
             onChangeText={setDescription}
           />
           
-          {/* Price (Feature 1d) */}
+          {/* Price area for the chefs input */}
           <TextInput
             placeholder="Add Price"
             placeholderTextColor={'#d9d9d9'}
@@ -206,7 +220,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
             onChangeText={setPrice}
           />
           
-          {/* Course Picker (Feature 1c & 2) */}
+          {/* Course selector area for the chef input */}
           <View style={styles.pickerContainer}>
             <Picker
               selectedValue={course}
@@ -230,25 +244,24 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
   );
 };
 
-
-// --- MAIN APP COMPONENT ---
-
+// ReactNativeForProfessionals(2025) says this is how to create the main apps componenets
 const HomeScreen = () => {
   const [menuItems, setMenuItems] = useState<MenuItem[]>(INITIAL_MENU_ITEMS);
   const [selectedCourse, setSelectedCourse] = useState('All');
 
-  // Function to add a new item (Feature 5)
+  // Add a new menu item to the end of the menu list.
   const addMenuItem = (newItem: MenuItem) => {
     setMenuItems(prevItems => [...prevItems, newItem]);
   };
   
-  // Function to remove an item (NEW FEATURE)
+  // Remove a menu item by thier id. 
   const removeMenuItem = (idToRemove: string) => {
     setMenuItems(prevItems => prevItems.filter(item => item.id !== idToRemove));
   };
 
 
-  // Filter menu items based on the selected course
+  // Memoized filtered list so we only recompute when menuItems or the
+  // selected course changes. 'All' bypasses filtering.
   const filteredMenuItems = useMemo(() => {
     if (selectedCourse === 'All') {
       return menuItems;
@@ -256,17 +269,18 @@ const HomeScreen = () => {
     return menuItems.filter(item => item.course === selectedCourse);
   }, [menuItems, selectedCourse]);
   
-  // Calculate counts for filters (Feature 2)
+  // Used to display the amount of meals in each course filter
   const getCourseCount = (course: string) => {
     if (course === 'All') return menuItems.length;
     return menuItems.filter(item => item.course === course).length;
   };
   
+  // Ui for the homescreen
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         
-        {/* === RESTAURANT HEADER (Image 2 Top) === */}
+        {/* === Restuarant image === */}
         <ImageBackground
           source={{ uri: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB3MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }}
           style={styles.headerImageBackground}
@@ -282,17 +296,17 @@ const HomeScreen = () => {
             Maison Christoffels translated in english is the house of Christoffels. This business has been run by many forefathers in the Christoffels family name since 2009 with more legendary recipes of the sea passed down thourgh generations onto your plate
           </Text>
           
-          {/* === ADD ITEM FORM (Features 1 & 5) === */}
+          {/* adding of the item form */}
           <AddItemForm onSave={addMenuItem} />
 
-          {/* === MENU DISPLAY AND FILTERS === */}
+          {/* === Menu displays and their filters helped by the ReactNativeForProffesionals(2025) === */}
           
-          {/* Total Item Count (Feature 4) */}
+          {/* Total meals */}
           <Text style={styles.totalCountText}>
             Total Menu Items to select from: {menuItems.length}
           </Text>
           
-          {/* Filter Buttons (Image 1 Top) */}
+          {/* Filter Buttons */}
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
             {COURSES.map(course => (
               <TouchableOpacity
@@ -310,7 +324,7 @@ const HomeScreen = () => {
             ))}
           </ScrollView>
 
-          {/* Menu List (Feature 3) */}
+          {/* The list of the menu */}
           {filteredMenuItems.map(item => {
             return <MenuItemCard item={item} onRemove={removeMenuItem} key={item.id} />;
           })}
@@ -325,7 +339,7 @@ const HomeScreen = () => {
   );
 };
 
-// --- STYLESHEET ---
+// --- Stylesheet for the application ---
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -335,7 +349,6 @@ const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 50,
   },
-  // --- Header Styles ---
   headerImageBackground: {
     height: 300,
     justifyContent: 'flex-end',
@@ -349,13 +362,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     letterSpacing: 3,
-    // fontFamily: 'Hammersmith One', // Commented out to prevent errors if font isn't loaded
     textAlign: 'center',
   },
   restaurantYear: {
     fontSize: 18,
     color: 'white',
-    // fontFamily: 'Hammersmith One', // Commented out to prevent errors if font isn't loaded
     textAlign: 'center',
   },
   contentArea: {
@@ -366,13 +377,12 @@ const styles = StyleSheet.create({
   restaurantDescription: {
     fontSize: 14,
     color: 'white',
-    // fontFamily: 'Playfair Display', // Commented out to prevent errors if font isn't loaded
     fontStyle: 'italic',
     textAlign: 'center',
     marginBottom: 20,
     lineHeight: 20,
   },
-  // --- Chef Tools / Form Styles (Image 1) ---
+  // --- Chef Input Form Styles ---
   formContainer: {
     paddingVertical: 20,
     borderTopWidth: 1,
@@ -447,7 +457,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  // --- Menu Display / Filter Styles ---
+  // --- Menu Display Styles ---
   totalCountText: {
     fontSize: 16,
     fontWeight: '600',
@@ -474,16 +484,15 @@ const styles = StyleSheet.create({
   },
   filterButtonText: {
     color: 'white',
-    // fontFamily: 'Hammersmith One', // Commented out to prevent errors if font isn't loaded
     fontSize: 14,
   },
-  // --- Menu Item Card Styles (Image 2 Bottom) ---
+  // --- Menu Item Card Styles ---
   menuItemCard: {
     flexDirection: 'row',
     padding: 15,
     borderRadius: 15,
     marginVertical: 10,
-    elevation: 8, // Android shadow
+    elevation: 8, // Co pilot(2025) says to use elevation for Android to create shadow
     shadowColor: Platform.OS === 'ios' ? '#000' : 'transparent',
     shadowOpacity: 0.3,
     shadowRadius: 5,
@@ -522,7 +531,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
   },
-  // New Styles for Actions
+  
   menuItemActions: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -531,7 +540,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 5,
     borderRadius: 15,
-    marginLeft: 5, // Spacing between buttons
+    marginLeft: 5, 
   },
   seeMoreButton: {
     backgroundColor: '#3a9bdc',
@@ -541,9 +550,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
   },
-  // Style for the new Remove button
+  // --Style for the new Remove button---
   removeButton: {
-    backgroundColor: '#dc3a3a', // Red color for removal
+    backgroundColor: '#dc3a3a',
   },
   removeButtonText: {
     color: 'white',
