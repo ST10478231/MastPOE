@@ -1,0 +1,114 @@
+// FilterScreen.tsx
+
+import React, { useMemo } from 'react';
+import { View, StyleSheet, TouchableOpacity, SafeAreaView, Platform, Text, ScrollView, Alert } from 'react-native';
+import MenuContent from './MenuContent'; 
+
+interface MenuItem {
+    id: string;
+    dishName: string;
+    description: string;
+    imageUrl?: string;
+    image?: any;
+    course: string;
+    price: number;
+}
+
+interface FilterScreenProps {
+    allMenuItems: MenuItem[]; 
+    activeFilter: string;
+    onApplyFilter: (filter: string) => void;
+    onReturn: () => void;
+}
+
+
+const FilterScreen = ({ allMenuItems, activeFilter, onApplyFilter, onReturn }: FilterScreenProps) => {
+
+    // Filtering logic must be re-applied here
+    const filteredItems = useMemo(() => {
+        if (activeFilter === 'ALL') {
+          return allMenuItems;
+        }
+        return allMenuItems.filter(item => item.course === activeFilter);
+      }, [allMenuItems, activeFilter]);
+
+    // Placeholder for onSeeMore 
+    const handleSeeMore = (item: MenuItem) => {
+        Alert.alert(
+            "Viewing Item Detail",
+            `You clicked 'See More' for: ${item.dishName}. In a real app, this would open a detail screen.`
+        );
+    };
+
+    return (
+        <SafeAreaView style={filterStyles.safeArea}>
+            <View style={filterStyles.headerContainer}>
+                
+                <TouchableOpacity style={filterStyles.returnButton} onPress={onReturn}>
+                    <Text style={filterStyles.returnButtonText}>Return</Text>
+                </TouchableOpacity>
+
+                <Text style={filterStyles.headerText}>Filter Page</Text>
+
+            </View>
+            
+            <ScrollView style={filterStyles.scrollContent}>
+                <MenuContent
+                    menuItems={filteredItems}
+                    allMenuItems={allMenuItems}
+                    activeFilter={activeFilter}
+                    onApplyFilter={onApplyFilter}
+                    onSeeMore={handleSeeMore}
+                />
+            </ScrollView>
+
+        </SafeAreaView>
+    );
+};
+
+// =========================================================================
+// Styles for FilterScreen
+// =========================================================================
+const filterStyles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#050a30',
+    },
+    scrollContent: {
+        flex: 1,
+        backgroundColor: '#050a30',
+    },
+    headerContainer: {
+        width: '100%',
+        height: Platform.OS === 'ios' ? 100 : 70,
+        backgroundColor: '#1f2547',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: Platform.OS === 'ios' ? 40 : 10,
+        borderBottomWidth: 1,
+        borderColor: '#3a9bdc',
+    },
+    headerText: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: 'white',
+        textAlign: 'center',
+    },
+    returnButton: {
+        position: 'absolute',
+        top: Platform.OS === 'ios' ? 45 : 15,
+        left: 15,
+        backgroundColor: '#3a9bdc',
+        borderRadius: 5,
+        paddingVertical: 8,
+        paddingHorizontal: 15,
+        zIndex: 10, 
+    },
+    returnButtonText: {
+        color: 'white',
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+});
+
+export default FilterScreen;

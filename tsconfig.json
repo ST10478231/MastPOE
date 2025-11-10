@@ -21,15 +21,9 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@components/*": [
-        "./components/*"
-      ],
-      "@assets/*": [
-        "./assets/*"
-      ]
+      "@/*": ["./*"],
+      "@components/*": ["./components/*"],
+      "@assets/*": ["./assets/*"]
     }
   },
   "include": [
@@ -42,5 +36,6 @@
     "metro.config.js",
     "jest.config.js"
   ],
-  "extends": "expo/tsconfig.base"
+  "extends": "./node_modules/expo/tsconfig.base"
 }
+
