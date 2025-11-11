@@ -203,7 +203,7 @@ const HomeScreen = ({ menuItems, onGoToChef, onGoToFilter }: HomeScreenProps) =>
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         
-        {/* === Header Image and Icons === */}
+        {/* === Header Image with the Icons === */}
         <ImageBackground
           source={{ uri: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB3MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }}
           style={styles.headerImageBackground}
@@ -213,17 +213,17 @@ const HomeScreen = ({ menuItems, onGoToChef, onGoToFilter }: HomeScreenProps) =>
             <Text style={styles.restaurantYear}>2009</Text>
           </View>
 
-          {/* Chef Icon (Left side) */}
+          {/* Chef Icon */}
           <TouchableOpacity style={styles.chefIcon} onPress={onGoToChef}>
             <Text style={styles.chefIconText}>👨‍🍳</Text> 
           </TouchableOpacity>
           
-          {/* Filter Icon (Center-Left) */}
+          {/* Filter Icon */}
           <TouchableOpacity style={styles.filterIcon} onPress={onGoToFilter}>
             <Text style={styles.filterIconText}>☰</Text> 
           </TouchableOpacity>
 
-          {/* Cart Icon (Right side) */}
+          {/* Cart Icon */}
           <TouchableOpacity style={styles.cartIcon} onPress={handleGoToCart}>
             <Text style={styles.cartIconText}>🛒</Text> 
             {cartItems.length > 0 && (
@@ -239,7 +239,7 @@ const HomeScreen = ({ menuItems, onGoToChef, onGoToFilter }: HomeScreenProps) =>
             Maison Christoffels translated in english is the house of Christoffels. This business has been run by many forefathers in the Christoffels family name since 2009 with more legendary recipes of the sea passed down thorough generations onto your plate
           </Text>
           
-          {/* === Menu displays (Directly in Home Screen) === */}
+          {/* === Menu display === */}
           
           <Text style={styles.totalCountText}>
             Total Menu Items Displayed: {menuItems.length}

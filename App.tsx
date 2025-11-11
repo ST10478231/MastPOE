@@ -6,11 +6,8 @@ import { Platform } from 'react-native';
 import HomeScreen from './HomeScreen'; 
 import ChefScreen from './ChefScreen';
 import FilterScreen from './FilterScreen'; 
-import { COURSES } from './MenuContent'; // Use COURSES from MenuContent
+import { COURSES } from './MenuContent'; // Uses the COURSES from MenuContent
 
-// =========================================================================
-// Core Data & Interfaces (Source of Truth)
-// =========================================================================
 
 export interface MenuItem {
   id: string;
@@ -25,7 +22,10 @@ export interface MenuItem {
 export const PLACEHOLDER_IMAGE_URL = 'https://via.placeholder.com/100/f0f0f0/666666?text=No+Image';
 
 const INITIAL_MENU_ITEMS: MenuItem[] = [
-  // Start of 33 Menu items
+  // Start of 33 Menu items.
+
+  // Mains
+
   { id: '1', dishName: 'Roasted Lobster Tails', 
     description: 'Two succulent lobster tails, broiled golden brown with a savory blend of melted butter.', 
     price: 379.99, 
@@ -79,6 +79,8 @@ const INITIAL_MENU_ITEMS: MenuItem[] = [
     price: 255.99, 
     course: 'Mains', 
     image: require('./assets/LinguineandClams.jpeg') },
+
+    // Starters
  
     { id: '9', 
     dishName: 'Crab Cake Bites', 
@@ -141,6 +143,8 @@ const INITIAL_MENU_ITEMS: MenuItem[] = [
     price: 185.99, 
     course: 'Starters', 
     image: require('./assets/OctopusPokeWithKimchi.jpeg') },
+
+    // Platters
  
     { id: '18', 
     dishName: 'Classically Chilled', 
@@ -169,6 +173,8 @@ const INITIAL_MENU_ITEMS: MenuItem[] = [
     price: 459.99, 
     course: 'Platters', 
     image: require('./assets/SushiSashimi.jpeg') },
+
+    // Sides
  
     { id: '22', 
     dishName: 'Cheesy Garlic Rolls', 
@@ -197,6 +203,8 @@ const INITIAL_MENU_ITEMS: MenuItem[] = [
     price: 39.99, 
     course: 'Sides', 
     image: require('./assets/CrustyBread.jpeg') },
+
+    // Desserts
  
     { id: '26', 
     dishName: 'Brown com Gelato', 
