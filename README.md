@@ -1,6 +1,9 @@
 # Github Link
 https://github.com/ST10478231/MastPOE/tree/master
 
+# St10478231
+Khensane Mhlongo
+
 # Changelog
 * Added and change a lot of css
 * Created diffrent screens
