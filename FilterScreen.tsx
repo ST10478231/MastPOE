@@ -24,7 +24,7 @@ interface FilterScreenProps {
 
 const FilterScreen = ({ allMenuItems, activeFilter, onApplyFilter, onReturn }: FilterScreenProps) => {
 
-    // Filtering logic must be re-applied here
+    // Filtering logic code
     const filteredItems = useMemo(() => {
         if (activeFilter === 'ALL') {
           return allMenuItems;
@@ -32,7 +32,7 @@ const FilterScreen = ({ allMenuItems, activeFilter, onApplyFilter, onReturn }: F
         return allMenuItems.filter(item => item.course === activeFilter);
       }, [allMenuItems, activeFilter]);
 
-    // Placeholder for onSeeMore 
+    // Placeholder for the see More option 
     const handleSeeMore = (item: MenuItem) => {
         Alert.alert(
             "Viewing Item Detail",
@@ -66,9 +66,7 @@ const FilterScreen = ({ allMenuItems, activeFilter, onApplyFilter, onReturn }: F
     );
 };
 
-// =========================================================================
 // Styles for FilterScreen
-// =========================================================================
 const filterStyles = StyleSheet.create({
     safeArea: {
         flex: 1,

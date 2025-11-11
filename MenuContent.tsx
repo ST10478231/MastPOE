@@ -6,6 +6,7 @@ import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity, Platform }
 export const COURSES = ['Starters', 'Mains', 'Desserts', 'Platters', 'Sides'];
 const PLACEHOLDER_IMAGE_URL = 'https://via.placeholder.com/100/f0f0f0/666666?text=No+Image';
 
+// This is the MenuItem interface
 interface MenuItem {
     id: string;
     dishName: string;
@@ -15,7 +16,7 @@ interface MenuItem {
     course: string;
     price: number;
 }
-
+ // This is the props interface for MenuContent
 interface MenuContentProps {
     menuItems: MenuItem[];
     allMenuItems: MenuItem[]; 
@@ -50,9 +51,9 @@ const MenuItemCard = ({ item, onSeeMore }: { item: MenuItem, onSeeMore: (item: M
   </TouchableOpacity>
 );
 
-// =========================================================================
-// MenuContent Component
-// =========================================================================
+
+// Menu Content code 
+
 const MenuContent = ({ menuItems, allMenuItems, activeFilter, onApplyFilter, onSeeMore }: MenuContentProps) => {
     
     // Calculations for display purposes
@@ -70,7 +71,7 @@ const MenuContent = ({ menuItems, allMenuItems, activeFilter, onApplyFilter, onS
     return (
         <View style={menuContentStyles.contentArea}>
             
-            {/* === HORIZONTAL FILTER BAR === */}
+            {/* === Filter code === */}
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={menuContentStyles.courseFilterContainer}>
                 {['ALL', ...COURSES].map(course => (
                     <TouchableOpacity
@@ -93,7 +94,7 @@ const MenuContent = ({ menuItems, allMenuItems, activeFilter, onApplyFilter, onS
                 ))}
             </ScrollView>
             
-            {/* === Menu Displays === */}
+            {/* === Menu Displays code === */}
             
             <Text style={menuContentStyles.totalCountText}>
                 Total Menu Items Displayed: {menuItems.length}
@@ -115,9 +116,7 @@ const MenuContent = ({ menuItems, allMenuItems, activeFilter, onApplyFilter, onS
     );
 };
 
-// =========================================================================
 // Styles for MenuContent
-// =========================================================================
 const menuContentStyles = StyleSheet.create({
     contentArea: { paddingHorizontal: 20, backgroundColor: '#050a30', paddingTop: 20, flex: 1 },
     

@@ -3,11 +3,10 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, TextInput, TouchableOpacity, Alert, SafeAreaView, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-// NOTE: Assuming COURSES is defined or imported, here we define it again for completeness.
+
 export const COURSES = ['Starters', 'Mains', 'Desserts', 'Platters', 'Sides']; 
 export const generateId = (): string => Math.random().toString(36).substring(2, 9);
 
-// Placeholder for the MenuItem interface from App.tsx
 interface MenuItem {
     id: string;
     dishName: string;
@@ -18,13 +17,11 @@ interface MenuItem {
     price: number;
   }
 
-interface AddItemFormProps {
+interface AddItemFormProps { 
   onSave: (item: MenuItem) => void;
 }
 
-// =========================================================================
-// AddItemForm Component
-// =========================================================================
+// Adding to the menu code
 const AddItemForm = ({ onSave }: AddItemFormProps) => {
   const [dishName, setDishName] = useState('');
   const [description, setDescription] = useState('');
@@ -32,13 +29,13 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
   const [course, setCourse] = useState(COURSES[0]); 
   const [imageUrl, setImageUrl] = useState('');
 
-  const handleSave = () => {
+  const handleSave = () => { // Error handling for missing details
     if (!dishName || !price || !course) {
       Alert.alert('Missing Details', 'Please fill in the Dish Name, Price, and select a Course.');
       return;
     }
 
-    const numericPrice = parseFloat(price);
+    const numericPrice = parseFloat(price); // Error handling for an invalid price
     if (isNaN(numericPrice) || numericPrice <= 0) {
       Alert.alert('Invalid Price', 'Please enter a valid price greater than zero.');
       return;
@@ -56,7 +53,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
 
     onSave(newItem); 
     
-    // Reset form after successful save
+    // This resets the form after the chef submits
     setDishName('');
     setDescription('');
     setPrice('');
@@ -66,9 +63,9 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
 
   return (
     <View>
-      <Text style={formStyles.formHeader}>🍽️ Add New Menu Item</Text>
+      <Text style={formStyles.formHeader}>Add New Menu Item</Text>
 
-      <Text style={formStyles.label}>Dish Name</Text>
+      <Text style={formStyles.label}>Dish Name</Text> // Dish name input code
       <TextInput
         style={formStyles.input}
         placeholder="e.g., Spicy Tuna Roll"
@@ -77,7 +74,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
         onChangeText={setDishName}
       />
 
-      <Text style={formStyles.label}>Description</Text>
+      <Text style={formStyles.label}>Description</Text> // Description input code
       <TextInput
         style={[formStyles.input, formStyles.textArea]}
         placeholder="This meal has a delicte..."
@@ -88,7 +85,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
         numberOfLines={4}
       />
 
-      <Text style={formStyles.label}>Price (R)</Text>
+      <Text style={formStyles.label}>Price (R)</Text> // Price input code
       <TextInput
         style={formStyles.input}
         placeholder="e.g., 149.99"
@@ -98,7 +95,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
         keyboardType="numeric" 
       />
 
-      <Text style={formStyles.label}>Image URL (Optional)</Text>
+      <Text style={formStyles.label}>Image URL (Optional)</Text> // Image input code
       <TextInput
         style={formStyles.input}
         placeholder="Paste external image URL here"
@@ -107,11 +104,11 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
         onChangeText={setImageUrl}
       />
 
-      <Text style={formStyles.label}>Course Category</Text>
+      <Text style={formStyles.label}>Course Category</Text> // Course selection code
       <View style={formStyles.pickerContainer}>
         <Picker
           selectedValue={course}
-          onValueChange={(itemValue: string) => setCourse(itemValue)} // Correctly typed
+          onValueChange={(itemValue: string) => setCourse(itemValue)} 
           style={formStyles.picker}
           itemStyle={formStyles.pickerItem}
         >
@@ -121,7 +118,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
         </Picker>
       </View>
 
-      <TouchableOpacity style={formStyles.saveButton} onPress={handleSave}>
+      <TouchableOpacity style={formStyles.saveButton} onPress={handleSave}> //Submit button to add to menu
         <Text style={formStyles.saveButtonText}>Add Item to Menu</Text>
       </TouchableOpacity>
     </View>

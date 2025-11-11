@@ -39,9 +39,7 @@ interface HomeScreenProps {
   onGoToFilter: () => void; 
 }
 
-// =========================================================================
-// CartScreen Component 
-// =========================================================================
+// CartScreen 
 const CartScreen = ({ cartItems, onReturn, onRemove }: CartScreenProps) => {
     const totalCost = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     
@@ -87,9 +85,7 @@ const CartScreen = ({ cartItems, onReturn, onRemove }: CartScreenProps) => {
 };
 
 
-// =========================================================================
-// MenuItemDetailScreen Component 
-// =========================================================================
+// Menu Items Detail Screen 
 const MenuItemDetailScreen = ({ item, onReturn, onAddToCart }: MenuItemDetailScreenProps) => (
   <SafeAreaView style={styles.safeArea}>
     <View style={styles.detailContainer}>
@@ -181,11 +177,11 @@ const HomeScreen = ({ menuItems, onGoToChef, onGoToFilter }: HomeScreenProps) =>
   };
 
 
-  // --- Calculations ---
+  // --- Calculations for total and average meal prices ---
   const totalMenuPrice = menuItems.reduce((sum, item) => sum + item.price, 0);
   const averagePrice = menuItems.length > 0 ? totalMenuPrice / menuItems.length : 0;
   
-  // --- Conditional Rendering ---
+  // --- Navigation to where the user will be placed when on detail and cart screen ---
   if (currentView === 'DETAIL' && selectedItem) {
     return <MenuItemDetailScreen 
       item={selectedItem} 
@@ -289,7 +285,7 @@ const HomeScreen = ({ menuItems, onGoToChef, onGoToFilter }: HomeScreenProps) =>
   );
 };
 
-// --- Stylesheet for the application ---
+// --- Stylesheet for the Home screen ---
 const styles = StyleSheet.create({
   safeArea: { 
     flex: 1, 
@@ -340,7 +336,7 @@ const styles = StyleSheet.create({
     lineHeight: 20 
   },
   
-  // Menu Stats and Card Styles (Re-added)
+  // Menus and card styles
   totalCountText: { 
     fontSize: 16, 
     fontWeight: '600', 
@@ -436,7 +432,7 @@ const styles = StyleSheet.create({
     marginTop: 20 
   },
   
-  // Detail Screen Styles 
+  // Details Screen Styles 
   detailContainer: { 
     flex: 1, 
     backgroundColor: '#050a30', 
