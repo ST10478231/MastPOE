@@ -1,5 +1,5 @@
 # Github Link
-https://github.com/ST10478231/MastPOE/tree/master
+https://github.com/VCCT-MAST5112-2025-G2/MastPOE
 
 # St10478231
 Khensane Mhlongo
