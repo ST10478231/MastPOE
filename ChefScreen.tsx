@@ -67,7 +67,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
     <View>
       <Text style={formStyles.formHeader}>Add New Menu Item</Text>
 
-      <Text style={formStyles.label}>Dish Name</Text> // Dish name input code
+      <Text style={formStyles.label}>Dish Name</Text> {/* Dish name input code */}
       <TextInput
         style={formStyles.input}
         placeholder="e.g., Spicy Tuna Roll"
@@ -76,7 +76,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
         onChangeText={setDishName}
       />
 
-      <Text style={formStyles.label}>Description</Text> // Description input code
+      <Text style={formStyles.label}>Description</Text> {/* Description input code */}
       <TextInput
         style={[formStyles.input, formStyles.textArea]}
         placeholder="This meal has a delicte..."
@@ -87,7 +87,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
         numberOfLines={4}
       />
 
-      <Text style={formStyles.label}>Price (R)</Text> // Price input code
+      <Text style={formStyles.label}>Price (R)</Text> {/* Price input code */}
       <TextInput
         style={formStyles.input}
         placeholder="e.g., 149.99"
@@ -97,7 +97,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
         keyboardType="numeric" 
       />
 
-      <Text style={formStyles.label}>Image URL (Optional)</Text> // Image input code
+      <Text style={formStyles.label}>Image URL (Optional)</Text> {/* Image input code */}
       <TextInput
         style={formStyles.input}
         placeholder="Paste external image URL here"
@@ -106,7 +106,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
         onChangeText={setImageUrl}
       />
 
-      <Text style={formStyles.label}>Course Category</Text> // Course selection code
+      <Text style={formStyles.label}>Course Category</Text> {/* Course selection code */}
       <View style={formStyles.pickerContainer}>
         <Picker
           selectedValue={course}
@@ -120,7 +120,7 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
         </Picker>
       </View>
 
-      <TouchableOpacity style={formStyles.saveButton} onPress={handleSave}> //Submit button to add to menu
+      <TouchableOpacity style={formStyles.saveButton} onPress={handleSave}> {/* Submit button to add to menu */}
         <Text style={formStyles.saveButtonText}>Add Item to Menu</Text>
       </TouchableOpacity>
     </View>
@@ -147,12 +147,12 @@ const ChefScreen = ({ menuItems, onAddItem, onRemoveItem, onReturn }: {
                     <Text style={formStyles.returnButtonText}>Back to Menu</Text>
                 </TouchableOpacity>
 
-                {/* --- 1. Add item form --- */}
+                {/* 1. Add item form */}
                 <AddItemForm onSave={onAddItem} />
 
                 <View style={formStyles.separator} />
 
-                {/* --- Menu management for the menu by the chef --- */}
+                {/* Menu management for the menu by the chef */}
                 <Text style={formStyles.managementHeader}> Manage Current Menu Items ({menuItems.length})</Text>
 
                 {menuItems.length === 0 ? (
