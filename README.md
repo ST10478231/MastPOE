@@ -11,13 +11,19 @@ Khensane Mhlongo
 * Added a filter page
 * Added average prices for courses
 * Added intext referencing
-* 
-
+* Updated code
+* Fixed code
+* Changed a lot of code
+* Updated expo
 
 # Youtube videos
 * (There is a two parts of the video)
 * https://youtu.be/8JRZYCX_UME Part 1
 * https://youtube.com/shorts/ANriDYR1wog?si=BBlR4e1ctmutsSWx Part 2
+
+# Part 3 videos
+* https://youtu.be/a6EJwQs_vmg Part 1
+* https://youtube.com/shorts/JMaem1jeGbI?feature=share
 
 Reference list
 * GitHub. (2025) GitHub Copilot [online]. Available at: https://github.com/features/copilot
