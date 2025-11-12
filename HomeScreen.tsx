@@ -118,9 +118,7 @@ const MenuItemDetailScreen = ({ item, onReturn, onAddToCart }: MenuItemDetailScr
 );
 
 
-// =========================================================================
-// HomeScreen Component 
-// =========================================================================
+// Codevolution (2022), Using hooks to manage state with functional components  
 type ViewState = 'HOME' | 'DETAIL' | 'CART';
 
 const HomeScreen = ({ menuItems, onGoToChef, onGoToFilter }: HomeScreenProps) => { 
@@ -128,7 +126,8 @@ const HomeScreen = ({ menuItems, onGoToChef, onGoToFilter }: HomeScreenProps) =>
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null); 
   const [cartItems, setCartItems] = useState<CartItem[]>([]); 
 
-  // --- Handlers ---
+ 
+// (React Native Notes for Professionals, 2022) states, the handleSeeMore code shows component transitions shown by users interaction
   const handleSeeMore = (item: MenuItem) => {
     setSelectedItem(item);
     setCurrentView('DETAIL');
@@ -147,6 +146,7 @@ const HomeScreen = ({ menuItems, onGoToChef, onGoToFilter }: HomeScreenProps) =>
     setCurrentView('HOME');
   };
 
+  //GitHub Copilot, (2025), states that the handleAddToCart code shows how to manage the cart items
   const handleAddToCart = (item: MenuItem) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(cartItem => cartItem.id === item.id);
@@ -250,6 +250,9 @@ const HomeScreen = ({ menuItems, onGoToChef, onGoToFilter }: HomeScreenProps) =>
             Average Meal Price: R{averagePrice.toFixed(2)}
           </Text>
           
+          
+          {/* === React Native Notes for Professionals, (2022) states, this code shows the reusable ui creation  === */}
+
           {menuItems.map(item => {
             return (
               <TouchableOpacity style={styles.menuItemCard} onPress={() => handleSeeMore(item)} key={item.id}>
@@ -286,6 +289,7 @@ const HomeScreen = ({ menuItems, onGoToChef, onGoToFilter }: HomeScreenProps) =>
 };
 
 // --- Stylesheet for the Home screen ---
+// Added more css styles for the cart and detail screens using platform specific code for ios and android learnt from Css Notes For Proffesionals (2022).
 const styles = StyleSheet.create({
   safeArea: { 
     flex: 1, 

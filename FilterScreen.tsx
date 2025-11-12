@@ -21,6 +21,7 @@ interface FilterScreenProps {
     onReturn: () => void;
 }
 
+// Programming with Masoud (2023) states that the useMemo hook can be "used to efficiently compute derived data like filtered lists without unnecessary re-renders."
 
 const FilterScreen = ({ allMenuItems, activeFilter, onApplyFilter, onReturn }: FilterScreenProps) => {
 
@@ -36,7 +37,7 @@ const FilterScreen = ({ allMenuItems, activeFilter, onApplyFilter, onReturn }: F
     const handleSeeMore = (item: MenuItem) => {
         Alert.alert(
             "Viewing Item Detail",
-            `You clicked 'See More' for: ${item.dishName}. In a real app, this would open a detail screen.`
+            `You clicked 'See More' for: ${item.dishName}.`,
         );
     };
 
@@ -53,6 +54,8 @@ const FilterScreen = ({ allMenuItems, activeFilter, onApplyFilter, onReturn }: F
             </View>
             
             <ScrollView style={filterStyles.scrollContent}>
+
+                {/*Programming with Masoud, (2023) statess, the MenuContent shows the user the filter they have selected . */}
                 <MenuContent
                     menuItems={filteredItems}
                     allMenuItems={allMenuItems}
@@ -67,6 +70,7 @@ const FilterScreen = ({ allMenuItems, activeFilter, onApplyFilter, onReturn }: F
 };
 
 // Styles for FilterScreen
+// Added more css styles for the cart and detail screens using platform specific code for ios and android learnt from Css Notes For Proffesionals (2022).
 const filterStyles = StyleSheet.create({
     safeArea: {
         flex: 1,

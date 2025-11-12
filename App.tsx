@@ -8,7 +8,7 @@ import ChefScreen from './ChefScreen';
 import FilterScreen from './FilterScreen'; 
 import { COURSES } from './MenuContent'; // Uses the COURSES from MenuContent
 
-
+// --- States the interface and placeholder image ---
 export interface MenuItem {
   id: string;
   dishName: string;
@@ -25,7 +25,6 @@ const INITIAL_MENU_ITEMS: MenuItem[] = [
   // Start of 33 Menu items.
 
   // Mains
-
   { id: '1', dishName: 'Roasted Lobster Tails', 
     description: 'Two succulent lobster tails, broiled golden brown with a savory blend of melted butter.', 
     price: 379.99, 
@@ -275,6 +274,7 @@ const App = () => {
   const [activeFilter, setActiveFilter] = useState<CourseFilter>('ALL'); 
 
   // --- Filtering Logic ---
+  // Codevolution (2022), states that by using useMeno we can avoid unnecessary recalculations on every render.
   const filteredMenuItems = useMemo(() => {
     if (activeFilter === 'ALL') {
       return menuItems;
@@ -282,11 +282,15 @@ const App = () => {
     return menuItems.filter(item => item.course === activeFilter);
   }, [menuItems, activeFilter]);
 
+  // --- Filter Handlers ---
+  // Programming with Mash, (2023), states that this function is used to apply the courses filters 
+  
   const handleApplyFilters = (filter: CourseFilter) => {
     setActiveFilter(filter);
   };
   
   // --- Chef Management Handlers ---
+  // React Native Mastery, (2023) states that this code is used to add and remove menu items.
   const handleAddItem = (newItem: MenuItem) => {
     const finalNewItem: MenuItem = {
         ...newItem,
@@ -311,7 +315,7 @@ const App = () => {
   const handleGoToFilter = () => setCurrentAppView('FILTER'); 
 
   
-  // --- Conditional Rendering ---
+  // --- Logic Based on Current View ---
   if (currentAppView === 'CHEF_MANAGEMENT') {
     return (
       <>
@@ -340,11 +344,11 @@ const App = () => {
     );
   }
 
-  // Default: Render HOME screen
+  // Web Dev Simplified, (2023) states that using this code means "data is passing rendering between parent and child components" 
   return (
     <>
       <HomeScreen 
-        menuItems={filteredMenuItems} // Pass the FILTERED list
+        menuItems={filteredMenuItems} 
         onGoToChef={handleGoToChef} 
         onGoToFilter={handleGoToFilter} 
       />

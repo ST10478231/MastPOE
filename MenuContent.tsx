@@ -25,9 +25,8 @@ interface MenuContentProps {
     onSeeMore: (item: MenuItem) => void;
 }
 
-// =========================================================================
 // MenuItemCard Component
-// =========================================================================
+// Qodo (2025), states that this code displays individual menu items with an image, description, price, and a "See More" button.
 const MenuItemCard = ({ item, onSeeMore }: { item: MenuItem, onSeeMore: (item: MenuItem) => void }) => (
   <TouchableOpacity style={menuContentStyles.menuItemCard} onPress={() => onSeeMore(item)}>
     <Image
@@ -56,11 +55,11 @@ const MenuItemCard = ({ item, onSeeMore }: { item: MenuItem, onSeeMore: (item: M
 
 const MenuContent = ({ menuItems, allMenuItems, activeFilter, onApplyFilter, onSeeMore }: MenuContentProps) => {
     
-    // Calculations for display purposes
+    // Calculations for the display of average price
     const totalMenuPrice = menuItems.reduce((sum, item) => sum + item.price, 0);
     const averagePrice = menuItems.length > 0 ? totalMenuPrice / menuItems.length : 0;
 
-    // Function to calculate the count for each filter button
+    // Code to calculate the count for each filter button
     const getCountForFilter = (filter: string) => {
       if (filter === 'ALL') {
         return allMenuItems.length;
@@ -71,7 +70,8 @@ const MenuContent = ({ menuItems, allMenuItems, activeFilter, onApplyFilter, onS
     return (
         <View style={menuContentStyles.contentArea}>
             
-            {/* === Filter code === */}
+            {/* Filter code */}
+            {/* Programming with Masoud, (2023), states that this code will provide a filter */}
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={menuContentStyles.courseFilterContainer}>
                 {['ALL', ...COURSES].map(course => (
                     <TouchableOpacity
@@ -94,7 +94,8 @@ const MenuContent = ({ menuItems, allMenuItems, activeFilter, onApplyFilter, onS
                 ))}
             </ScrollView>
             
-            {/* === Menu Displays code === */}
+            {/*Menu Displays code*/}
+            {/* Programming with Masoud (2023), states the menu items are displayed depending on the chosen filter with the following code. */}
             
             <Text style={menuContentStyles.totalCountText}>
                 Total Menu Items Displayed: {menuItems.length}
@@ -117,6 +118,7 @@ const MenuContent = ({ menuItems, allMenuItems, activeFilter, onApplyFilter, onS
 };
 
 // Styles for MenuContent
+// Added more css styles for the cart and detail screens using platform specific code for ios and android learnt from Css Notes For Proffesionals (2022).
 const menuContentStyles = StyleSheet.create({
     contentArea: { paddingHorizontal: 20, backgroundColor: '#050a30', paddingTop: 20, flex: 1 },
     

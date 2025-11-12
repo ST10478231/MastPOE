@@ -22,6 +22,7 @@ interface AddItemFormProps {
 }
 
 // Adding to the menu code
+// Codevolution (2022) states that the AddItemForm component handles the form inputs and submission logic for adding new menu items.
 const AddItemForm = ({ onSave }: AddItemFormProps) => {
   const [dishName, setDishName] = useState('');
   const [description, setDescription] = useState('');
@@ -50,7 +51,8 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
       imageUrl: imageUrl,
       image: undefined, 
     };
-
+    
+    // The onSave connects the form inputs to the menu management (YouTube, 2025)
     onSave(newItem); 
     
     // This resets the form after the chef submits
@@ -126,9 +128,10 @@ const AddItemForm = ({ onSave }: AddItemFormProps) => {
 };
 
 
-// =========================================================================
-// ChefScreen Component (Main View)
-// =========================================================================
+
+// ChefScreen Component the main coponent
+//(React Native Notes for Professionals, 2022) The Code is used to combine the form inputs and menu management display
+
 const ChefScreen = ({ menuItems, onAddItem, onRemoveItem, onReturn }: { 
     menuItems: MenuItem[], 
     onAddItem: (item: MenuItem) => void, 
@@ -144,12 +147,12 @@ const ChefScreen = ({ menuItems, onAddItem, onRemoveItem, onReturn }: {
                     <Text style={formStyles.returnButtonText}>Back to Menu</Text>
                 </TouchableOpacity>
 
-                {/* --- 1. ADD ITEM FORM --- */}
+                {/* --- 1. Add item form --- */}
                 <AddItemForm onSave={onAddItem} />
 
                 <View style={formStyles.separator} />
 
-                {/* --- 2. MENU ITEM MANAGEMENT LIST --- */}
+                {/* --- Menu management for the menu by the chef --- */}
                 <Text style={formStyles.managementHeader}> Manage Current Menu Items ({menuItems.length})</Text>
 
                 {menuItems.length === 0 ? (
@@ -188,9 +191,9 @@ const ChefScreen = ({ menuItems, onAddItem, onRemoveItem, onReturn }: {
 export default ChefScreen;
 
 
-// =========================================================================
 // Styles for ChefScreen/AddItemForm
-// =========================================================================
+
+// Added more css styles for the cart and detail screens using platform specific code for ios and android learnt from Css Notes For Proffesionals (2022).
 const formStyles = StyleSheet.create({
   safeArea: { 
     flex: 1, 
