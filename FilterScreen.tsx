@@ -1,8 +1,7 @@
 // FilterScreen.tsx
-
 import React, { useMemo } from 'react';
 import { View, StyleSheet, TouchableOpacity, SafeAreaView, Platform, Text, ScrollView, Alert } from 'react-native';
-import MenuContent from './MenuContent'; 
+import MenuContent, { COURSES } from './MenuContent'; 
 
 interface MenuItem {
     id: string;
@@ -28,10 +27,10 @@ const FilterScreen = ({ allMenuItems, activeFilter, onApplyFilter, onReturn }: F
     // Filtering logic code
     const filteredItems = useMemo(() => {
         if (activeFilter === 'ALL') {
-          return allMenuItems;
+            return allMenuItems;
         }
         return allMenuItems.filter(item => item.course === activeFilter);
-      }, [allMenuItems, activeFilter]);
+    }, [allMenuItems, activeFilter]);
 
     // Placeholder for the see More option 
     const handleSeeMore = (item: MenuItem) => {
@@ -44,33 +43,29 @@ const FilterScreen = ({ allMenuItems, activeFilter, onApplyFilter, onReturn }: F
     return (
         <SafeAreaView style={filterStyles.safeArea}>
             <View style={filterStyles.headerContainer}>
-                
                 <TouchableOpacity style={filterStyles.returnButton} onPress={onReturn}>
                     <Text style={filterStyles.returnButtonText}>Return</Text>
                 </TouchableOpacity>
 
-                <Text style={filterStyles.headerText}>Filter Page</Text>
-
+                <Text style={filterStyles.headerText}>Filter Page: {activeFilter}</Text>
             </View>
-            
-            <ScrollView style={filterStyles.scrollContent}>
 
-                {/*Programming with Masoud, (2023) statess, the MenuContent shows the user the filter they have selected . */}
+            <ScrollView style={filterStyles.scrollContent}>
+                {/* Programming with Masoud, (2023) states, the MenuContent shows the user the filter they have selected */}
                 <MenuContent
                     menuItems={filteredItems}
-                    allMenuItems={allMenuItems}
+                    allMenuItems={allMenuItems} // Added: full menu for proper filtering
                     activeFilter={activeFilter}
-                    onApplyFilter={onApplyFilter}
+                    onApplyFilter={onApplyFilter} 
                     onSeeMore={handleSeeMore}
                 />
             </ScrollView>
-
         </SafeAreaView>
     );
 };
 
 // Styles for FilterScreen
-// Added more css styles for the cart and detail screens using platform specific code for ios and android learnt from Css Notes For Proffesionals (2022).
+// Added more css styles for the cart and detail screens using platform specific code for ios and android learnt from Css Notes For Professionals (2022).
 const filterStyles = StyleSheet.create({
     safeArea: {
         flex: 1,

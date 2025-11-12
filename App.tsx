@@ -1,3 +1,5 @@
+// App.tsx
+
 import React, { useState, useMemo } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Platform } from 'react-native';
@@ -311,7 +313,13 @@ const App = () => {
 
   // --- View Switching Handlers ---
   const handleGoToChef = () => setCurrentAppView('CHEF_MANAGEMENT');
-  const handleReturnToHome = () => setCurrentAppView('HOME');
+  
+  // 🔑 CRITICAL FIX: Reset the filter state when returning to the HOME view
+  const handleReturnToHome = () => {
+    setActiveFilter('ALL'); // Set filter back to default to display all items
+    setCurrentAppView('HOME');
+  }
+
   const handleGoToFilter = () => setCurrentAppView('FILTER'); 
 
   
@@ -337,7 +345,7 @@ const App = () => {
             allMenuItems={menuItems}
             activeFilter={activeFilter}
             onApplyFilter={handleApplyFilters}
-            onReturn={handleReturnToHome}
+            onReturn={handleReturnToHome} // This function now ensures filter is reset on return
         />
         <StatusBar style="auto" />
       </>
@@ -348,6 +356,7 @@ const App = () => {
   return (
     <>
       <HomeScreen 
+        // filteredMenuItems will be the full list if activeFilter is 'ALL'
         menuItems={filteredMenuItems} 
         onGoToChef={handleGoToChef} 
         onGoToFilter={handleGoToFilter} 

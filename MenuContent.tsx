@@ -1,9 +1,11 @@
 // MenuContent.tsx
-
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity, Platform } from 'react-native';
 
+// Course categories reference: Qodo AI (2023)
 export const COURSES = ['Starters', 'Mains', 'Desserts', 'Platters', 'Sides'];
+
+// Placeholder image: Css Notes For Professionals (2022)
 const PLACEHOLDER_IMAGE_URL = 'https://via.placeholder.com/100/f0f0f0/666666?text=No+Image';
 
 // This is the MenuItem interface
@@ -16,7 +18,8 @@ interface MenuItem {
     course: string;
     price: number;
 }
- // This is the props interface for MenuContent
+
+// This is the props interface for MenuContent
 interface MenuContentProps {
     menuItems: MenuItem[];
     allMenuItems: MenuItem[]; 
@@ -26,52 +29,45 @@ interface MenuContentProps {
 }
 
 // MenuItemCard Component
-// Qodo (2025), states that this code displays individual menu items with an image, description, price, and a "See More" button.
 const MenuItemCard = ({ item, onSeeMore }: { item: MenuItem, onSeeMore: (item: MenuItem) => void }) => (
-  <TouchableOpacity style={menuContentStyles.menuItemCard} onPress={() => onSeeMore(item)}>
-    <Image
-      source={item.image ? item.image : { uri: item.imageUrl || PLACEHOLDER_IMAGE_URL }}
-      style={menuContentStyles.menuItemImage}
-    />
-    <View style={menuContentStyles.menuItemTextContent}>
-      <Text style={menuContentStyles.menuItemDishName}>{item.dishName}</Text>
-      <Text style={menuContentStyles.menuItemDescription} numberOfLines={2}>
-        {item.description || 'No description provided.'}
-      </Text>
-      <View style={menuContentStyles.menuItemFooter}>
-        <Text style={menuContentStyles.menuItemPrice}>R{item.price.toFixed(2)}</Text> 
-        <View style={menuContentStyles.menuItemActions}>
-          <TouchableOpacity style={[menuContentStyles.actionButton, menuContentStyles.seeMoreButton]} onPress={(e) => { e.stopPropagation(); onSeeMore(item); }}>
-            <Text style={menuContentStyles.seeMoreButtonText}>See More</Text>
-          </TouchableOpacity>
+    <TouchableOpacity style={menuContentStyles.menuItemCard} onPress={() => onSeeMore(item)}>
+        <Image
+            source={item.image ? item.image : { uri: item.imageUrl || PLACEHOLDER_IMAGE_URL }}
+            style={menuContentStyles.menuItemImage}
+        />
+        <View style={menuContentStyles.menuItemTextContent}>
+            <Text style={menuContentStyles.menuItemDishName}>{item.dishName}</Text>
+            <Text style={menuContentStyles.menuItemDescription} numberOfLines={2}>
+                {item.description || 'No description provided.'}
+            </Text>
+            <View style={menuContentStyles.menuItemFooter}>
+                <Text style={menuContentStyles.menuItemPrice}>R{item.price.toFixed(2)}</Text> 
+                <View style={menuContentStyles.menuItemActions}>
+                    <TouchableOpacity style={[menuContentStyles.actionButton, menuContentStyles.seeMoreButton]} onPress={(e) => { e.stopPropagation(); onSeeMore(item); }}>
+                        <Text style={menuContentStyles.seeMoreButtonText}>See More</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         </View>
-      </View>
-    </View>
-  </TouchableOpacity>
+    </TouchableOpacity>
 );
 
-
-// Menu Content code 
-
+// Github Copilot, (2025) states this Menu Content code will display the menu items and filtering options 
 const MenuContent = ({ menuItems, allMenuItems, activeFilter, onApplyFilter, onSeeMore }: MenuContentProps) => {
-    
-    // Calculations for the display of average price
+
+    // Calculations for average price
     const totalMenuPrice = menuItems.reduce((sum, item) => sum + item.price, 0);
     const averagePrice = menuItems.length > 0 ? totalMenuPrice / menuItems.length : 0;
 
-    // Code to calculate the count for each filter button
+    // Calculate count for each filter button
     const getCountForFilter = (filter: string) => {
-      if (filter === 'ALL') {
-        return allMenuItems.length;
-      }
-      return allMenuItems.filter(item => item.course === filter).length;
+        if (filter === 'ALL') return allMenuItems.length;
+        return allMenuItems.filter(item => item.course === filter).length;
     };
 
     return (
-        <View style={menuContentStyles.contentArea}>
-            
-            {/* Filter code */}
-            {/* Programming with Masoud, (2023), states that this code will provide a filter */}
+        <ScrollView style={menuContentStyles.contentArea}> 
+            {/* Filter buttons horizontal scroll */}
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={menuContentStyles.courseFilterContainer}>
                 {['ALL', ...COURSES].map(course => (
                     <TouchableOpacity
@@ -93,149 +89,61 @@ const MenuContent = ({ menuItems, allMenuItems, activeFilter, onApplyFilter, onS
                     </TouchableOpacity>
                 ))}
             </ScrollView>
-            
-            {/*Menu Displays code*/}
-            {/* Programming with Masoud (2023), states the menu items are displayed depending on the chosen filter with the following code. */}
-            
+
+            {/* Stats */}
             <Text style={menuContentStyles.totalCountText}>
                 Total Menu Items Displayed: {menuItems.length}
             </Text>
-            
             <Text style={menuContentStyles.averagePriceText}>
                 Average Meal Price: R{averagePrice.toFixed(2)}
             </Text>
-            
-            {menuItems.map(item => {
-                return <MenuItemCard item={item} onSeeMore={onSeeMore} key={item.id} />;
-            })}
+
+            {/* Menu items */}
+            {menuItems.map(item => <MenuItemCard key={item.id} item={item} onSeeMore={onSeeMore} />)}
 
             {menuItems.length === 0 && (
                 <Text style={menuContentStyles.emptyListText}>No items match the current filter.</Text>
             )}
-
-        </View>
+        </ScrollView>
     );
 };
 
-// Styles for MenuContent
-// Added more css styles for the cart and detail screens using platform specific code for ios and android learnt from Css Notes For Proffesionals (2022).
+// Styles
 const menuContentStyles = StyleSheet.create({
+    
     contentArea: { paddingHorizontal: 20, backgroundColor: '#050a30', paddingTop: 20, flex: 1 },
-    
-    // Filter Styles
-    courseFilterContainer: {
-        paddingVertical: 10,
-        marginBottom: 15,
-        marginHorizontal: -20, 
-        borderBottomWidth: 1,
-        borderTopWidth: 1,
-        borderColor: '#1f2547',
-        backgroundColor: '#050a30',
-    },
-    courseButton: {
-        paddingHorizontal: 15,
-        paddingVertical: 8,
-        borderRadius: 20,
-        backgroundColor: '#1f2547',
-        marginHorizontal: 5,
-        borderWidth: 1,
-        borderColor: '#3a9bdc',
-    },
-    activeCourseButton: {
-        backgroundColor: '#3a9bdc',
-        borderColor: '#cae8ff',
-    },
-    courseButtonText: {
-        color: '#cae8ff',
-        fontWeight: '500',
-        fontSize: 14,
-    },
-    activeCourseButtonText: {
-        color: '#050a30',
-        fontWeight: 'bold',
-    },
-    
-    // Menu Stats and Cards Styles
-    totalCountText: { 
-        fontSize: 16, 
-        fontWeight: '600', 
-        color: 'white', 
-        marginBottom: 5, 
-        textAlign: 'center' 
-    },
 
+    courseFilterContainer: { paddingVertical: 10, marginBottom: 15, marginHorizontal: -20, borderBottomWidth: 1, borderTopWidth: 1, borderColor: '#1f2547', backgroundColor: '#050a30' },
 
-    averagePriceText: { 
-        fontSize: 16, 
-        fontWeight: '600', 
-        color: '#cae8ff', 
-        marginBottom: 15, 
-        textAlign: 'center' 
-    },
+    courseButton: { paddingHorizontal: 15, paddingVertical: 8, borderRadius: 20, backgroundColor: '#1f2547', marginHorizontal: 5, borderWidth: 1, borderColor: '#3a9bdc' },
 
+    activeCourseButton: { backgroundColor: '#3a9bdc', borderColor: '#cae8ff' },
 
-    menuItemCard: { 
-        flexDirection: 'row', 
-        padding: 15, 
-        borderRadius: 15, 
-        marginVertical: 10, 
-        elevation: 8, 
-        shadowColor: Platform.OS === 'ios' ? '#000' : 'transparent', 
-        shadowOpacity: 0.3, 
-        shadowRadius: 5, 
-        shadowOffset: { width: 0, height: 2 }, 
-        backgroundColor: 'white', 
-        borderWidth: Platform.OS === 'android' ? 1 : 0, 
-        borderColor: Platform.OS === 'android' ? '#ddd' : 'transparent' 
-    },
+    courseButtonText: { color: '#cae8ff', fontWeight: '500', fontSize: 14 },
 
-    menuItemImage: { 
-        width: 100, 
-        height: 100, 
-        borderRadius: 8, 
-        marginRight: 15 
-    },
+    activeCourseButtonText: { color: '#050a30', fontWeight: 'bold' },
 
-    menuItemTextContent: { 
-        flex: 1, 
-        justifyContent: 'space-between' 
-    },
+    totalCountText: { fontSize: 16, fontWeight: '600', color: 'white', marginBottom: 5, textAlign: 'center' },
 
-    menuItemDishName: { 
-        fontSize: 16, 
-        fontWeight: 'bold', 
-        color: 'black' 
-    },
+    averagePriceText: { fontSize: 16, fontWeight: '600', color: '#cae8ff', marginBottom: 15, textAlign: 'center' },
 
-    menuItemDescription: { 
-        fontSize: 12, 
-        color: 'black', 
-        marginVertical: 5 
-    },
+    menuItemCard: { flexDirection: 'row', padding: 15, borderRadius: 15, marginVertical: 10, elevation: 8, shadowColor: Platform.OS === 'ios' ? '#000' : 'transparent', shadowOpacity: 0.3, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, backgroundColor: 'white', borderWidth: Platform.OS === 'android' ? 1 : 0, borderColor: Platform.OS === 'android' ? '#ddd' : 'transparent' },
 
-    menuItemFooter: { 
-        flexDirection: 'row', 
-        justifyContent: 'space-between', 
-        alignItems: 'center' 
-    },
+    menuItemImage: { width: 100, height: 100, borderRadius: 8, marginRight: 15 },
 
-    menuItemPrice: { 
-        fontSize: 14, 
-        fontWeight: 'bold', 
-        color: 'black' 
-    },
+    menuItemTextContent: { flex: 1, justifyContent: 'space-between' },
 
-    menuItemActions: { 
-        flexDirection: 'row', 
-        alignItems: 'center' 
-    },
+    menuItemDishName: { fontSize: 16, fontWeight: 'bold', color: 'black' },
 
-    actionButton: { 
-        paddingHorizontal: 8, 
-        paddingVertical: 5, 
-        borderRadius: 15, 
-        marginLeft: 5 
-    },
+    menuItemDescription: { fontSize: 12, color: 'black', marginVertical: 5 },
+
+    menuItemFooter: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+
+    menuItemPrice: { fontSize: 14, fontWeight: 'bold', color: 'black' },
+
+    menuItemActions: { flexDirection: 'row', alignItems: 'center' },
+
+    actionButton: { paddingHorizontal: 8, paddingVertical: 5, borderRadius: 15, marginLeft: 5 },
 
     seeMoreButton: { 
         backgroundColor: '#3a9bdc' 
@@ -246,13 +154,12 @@ const menuContentStyles = StyleSheet.create({
         fontSize: 12, 
         fontWeight: 'bold' 
     },
-
+    
     emptyListText: { 
         textAlign: 'center', 
-        color: 'Grey', 
+        color: 'grey', 
         marginTop: 20 
     },
-
 });
 
 export default MenuContent;
