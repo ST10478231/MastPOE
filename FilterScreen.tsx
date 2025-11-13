@@ -54,7 +54,7 @@ const FilterScreen = ({ allMenuItems, activeFilter, onApplyFilter, onReturn }: F
                 {/* Programming with Masoud, (2023) states, the MenuContent shows the user the filter they have selected */}
                 <MenuContent
                     menuItems={filteredItems}
-                    allMenuItems={allMenuItems} // Added: full menu for proper filtering
+                    allMenuItems={allMenuItems} 
                     activeFilter={activeFilter}
                     onApplyFilter={onApplyFilter} 
                     onSeeMore={handleSeeMore}

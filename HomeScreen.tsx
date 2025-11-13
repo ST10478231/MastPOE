@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, ImageBackground, TouchableOpacity, SafeAreaView, Image, Platform, Alert } from 'react-native';
 
-// NOTE: Use local constants for clarity, or import them from App.tsx
 const PLACEHOLDER_IMAGE_URL = 'https://via.placeholder.com/100/f0f0f0/666666?text=No+Image';
 
 interface MenuItem {
@@ -20,26 +19,28 @@ interface CartItem extends MenuItem {
     quantity: number;
 }
 
+// Cart Screen Props used to show items added to the cart
 interface CartScreenProps {
   cartItems: CartItem[];
   onReturn: () => void;
   onRemove: (id: string) => void;
 }
 
+// Menu Item Detail Screen Props used to show more information about the selected menu item
 interface MenuItemDetailScreenProps {
   item: MenuItem;
   onReturn: () => void;
   onAddToCart: (item: MenuItem) => void; 
 }
 
-// Updated HomeScreenProps - Simplified
+// HomeScreen Props this will receive information from the App.tsx
 interface HomeScreenProps {
   menuItems: MenuItem[];
   onGoToChef: () => void;
   onGoToFilter: () => void; 
 }
 
-// CartScreen 
+// CartScreen code
 const CartScreen = ({ cartItems, onReturn, onRemove }: CartScreenProps) => {
     const totalCost = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     
@@ -203,7 +204,7 @@ const HomeScreen = ({ menuItems, onGoToChef, onGoToFilter }: HomeScreenProps) =>
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         
-        {/* === Header Image with the Icons === */}
+        {/* Header Image with the Icons */}
         <ImageBackground
           source={{ uri: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB3MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }}
           style={styles.headerImageBackground}
@@ -239,7 +240,7 @@ const HomeScreen = ({ menuItems, onGoToChef, onGoToFilter }: HomeScreenProps) =>
             Maison Christoffels translated in english is the house of Christoffels. This business has been run by many forefathers in the Christoffels family name since 2009 with more legendary recipes of the sea passed down thorough generations onto your plate
           </Text>
           
-          {/* === Menu display === */}
+          {/* Menu display */}
           
           <Text style={styles.totalCountText}>
             Total Menu Items Displayed: {menuItems.length}
@@ -251,7 +252,7 @@ const HomeScreen = ({ menuItems, onGoToChef, onGoToFilter }: HomeScreenProps) =>
           </Text>
           
           
-          {/* === React Native Notes for Professionals, (2022) states, this code shows the reusable ui creation  === */}
+          {/*  React Native Notes for Professionals, (2022) states, this code shows the reusable ui creation  */}
 
           {menuItems.map(item => {
             return (

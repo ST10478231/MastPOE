@@ -266,10 +266,11 @@ const INITIAL_MENU_ITEMS: MenuItem[] = [
 
 export const generateId = (): string => Math.random().toString(36).substring(2, 9);
 
-
+// --- App Component ---
 type AppViewState = 'HOME' | 'CHEF_MANAGEMENT' | 'FILTER'; 
 type CourseFilter = string | 'ALL'; 
 
+// Web Dev Simplified, (2023) states that "the App component manages the overall state and view transitions of the application."
 const App = () => {
   const [menuItems, setMenuItems] = useState<MenuItem[]>(INITIAL_MENU_ITEMS);
   const [currentAppView, setCurrentAppView] = useState<AppViewState>('HOME');
@@ -345,7 +346,7 @@ const App = () => {
             allMenuItems={menuItems}
             activeFilter={activeFilter}
             onApplyFilter={handleApplyFilters}
-            onReturn={handleReturnToHome} // This function now ensures filter is reset on return
+            onReturn={handleReturnToHome} 
         />
         <StatusBar style="auto" />
       </>
@@ -356,7 +357,6 @@ const App = () => {
   return (
     <>
       <HomeScreen 
-        // filteredMenuItems will be the full list if activeFilter is 'ALL'
         menuItems={filteredMenuItems} 
         onGoToChef={handleGoToChef} 
         onGoToFilter={handleGoToFilter} 

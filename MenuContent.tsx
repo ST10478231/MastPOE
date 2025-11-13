@@ -1,8 +1,9 @@
 // MenuContent.tsx
+// Qodo AI (2023) states using a menu content helps in organizing the menu items and their logic
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, Image, TouchableOpacity, Platform } from 'react-native';
 
-// Course categories reference: Qodo AI (2023)
+
 export const COURSES = ['Starters', 'Mains', 'Desserts', 'Platters', 'Sides'];
 
 // Placeholder image: Css Notes For Professionals (2022)
@@ -28,7 +29,7 @@ interface MenuContentProps {
     onSeeMore: (item: MenuItem) => void;
 }
 
-// MenuItemCard Component
+// MenuItemCard Component used for rendering each menu item
 const MenuItemCard = ({ item, onSeeMore }: { item: MenuItem, onSeeMore: (item: MenuItem) => void }) => (
     <TouchableOpacity style={menuContentStyles.menuItemCard} onPress={() => onSeeMore(item)}>
         <Image
@@ -111,39 +112,126 @@ const MenuContent = ({ menuItems, allMenuItems, activeFilter, onApplyFilter, onS
 // Styles
 const menuContentStyles = StyleSheet.create({
     
-    contentArea: { paddingHorizontal: 20, backgroundColor: '#050a30', paddingTop: 20, flex: 1 },
+    contentArea: { 
+        paddingHorizontal: 20, 
+        backgroundColor: '#050a30', 
+        paddingTop: 20, flex: 1 
+    },
 
-    courseFilterContainer: { paddingVertical: 10, marginBottom: 15, marginHorizontal: -20, borderBottomWidth: 1, borderTopWidth: 1, borderColor: '#1f2547', backgroundColor: '#050a30' },
+    courseFilterContainer: { 
+        paddingVertical: 10, 
+        marginBottom: 15, 
+        marginHorizontal: -20, 
+        borderBottomWidth: 1, 
+        borderTopWidth: 1, 
+        borderColor: '#1f2547', 
+        backgroundColor: '#050a30' 
+    },
 
-    courseButton: { paddingHorizontal: 15, paddingVertical: 8, borderRadius: 20, backgroundColor: '#1f2547', marginHorizontal: 5, borderWidth: 1, borderColor: '#3a9bdc' },
+    courseButton: { 
+        paddingHorizontal: 15, 
+        paddingVertical: 8, 
+        borderRadius: 20, 
+        backgroundColor: '#1f2547', 
+        marginHorizontal: 5, 
+        borderWidth: 1, 
+        borderColor: '#3a9bdc' 
+    },
 
-    activeCourseButton: { backgroundColor: '#3a9bdc', borderColor: '#cae8ff' },
+    activeCourseButton: { 
+        backgroundColor: '#3a9bdc', 
+        borderColor: '#cae8ff' 
+    },
 
-    courseButtonText: { color: '#cae8ff', fontWeight: '500', fontSize: 14 },
+    courseButtonText: { 
+        color: '#cae8ff', 
+        fontWeight: '500', 
+        fontSize: 14 
+    },
 
-    activeCourseButtonText: { color: '#050a30', fontWeight: 'bold' },
+    activeCourseButtonText: { 
+        color: '#050a30', 
+        fontWeight: 'bold' 
+    },
 
-    totalCountText: { fontSize: 16, fontWeight: '600', color: 'white', marginBottom: 5, textAlign: 'center' },
+    totalCountText: { 
+        fontSize: 16, 
+        fontWeight: '600', 
+        color: 'white', 
+        marginBottom: 5, 
+        textAlign: 'center' 
+    },
 
-    averagePriceText: { fontSize: 16, fontWeight: '600', color: '#cae8ff', marginBottom: 15, textAlign: 'center' },
+    averagePriceText: { 
+        fontSize: 16, 
+        fontWeight: '600', 
+        color: '#cae8ff', 
+        marginBottom: 15, 
+        textAlign: 'center' 
+    },
 
-    menuItemCard: { flexDirection: 'row', padding: 15, borderRadius: 15, marginVertical: 10, elevation: 8, shadowColor: Platform.OS === 'ios' ? '#000' : 'transparent', shadowOpacity: 0.3, shadowRadius: 5, shadowOffset: { width: 0, height: 2 }, backgroundColor: 'white', borderWidth: Platform.OS === 'android' ? 1 : 0, borderColor: Platform.OS === 'android' ? '#ddd' : 'transparent' },
+    menuItemCard: { 
+        flexDirection: 'row', 
+        padding: 15, 
+        borderRadius: 15, 
+        marginVertical: 10, 
+        elevation: 8, 
+        shadowColor: Platform.OS === 'ios' ? '#000' : 'transparent', 
+        shadowOpacity: 0.3, 
+        shadowRadius: 5, 
+        shadowOffset: { width: 0, height: 2 }, 
+        backgroundColor: 'white', borderWidth: Platform.OS === 'android' ? 1 : 0, 
+        borderColor: Platform.OS === 'android' ? '#ddd' : 'transparent' 
+    },
 
-    menuItemImage: { width: 100, height: 100, borderRadius: 8, marginRight: 15 },
+    menuItemImage: { 
+        width: 100, 
+        height: 100, 
+        borderRadius: 8, 
+        marginRight: 15 
+    },
 
-    menuItemTextContent: { flex: 1, justifyContent: 'space-between' },
+    menuItemTextContent: { 
+        flex: 1, 
+        justifyContent: 'space-between' 
+    },
 
-    menuItemDishName: { fontSize: 16, fontWeight: 'bold', color: 'black' },
+    menuItemDishName: { 
+        fontSize: 16, 
+        fontWeight: 'bold', 
+        color: 'black' 
+    },
 
-    menuItemDescription: { fontSize: 12, color: 'black', marginVertical: 5 },
+    menuItemDescription: { 
+        fontSize: 12, 
+        color: 'black', 
+        marginVertical: 5 
+    },
 
-    menuItemFooter: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+    menuItemFooter: { 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        alignItems: 'center' 
+    },
 
-    menuItemPrice: { fontSize: 14, fontWeight: 'bold', color: 'black' },
+    menuItemPrice: { 
+        fontSize: 14, 
+        fontWeight: 'bold', 
+        color: 'black' 
+    },
 
-    menuItemActions: { flexDirection: 'row', alignItems: 'center' },
+    menuItemActions: { 
+        flexDirection: 'row', 
+        alignItems: 'center' 
+    },
 
-    actionButton: { paddingHorizontal: 8, paddingVertical: 5, borderRadius: 15, marginLeft: 5 },
+    actionButton: { 
+        paddingHorizontal: 8, 
+        paddingVertical: 5, 
+        borderRadius: 15, 
+        marginLeft: 5 
+        
+    },
 
     seeMoreButton: { 
         backgroundColor: '#3a9bdc' 

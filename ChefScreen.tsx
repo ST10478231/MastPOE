@@ -147,7 +147,7 @@ const ChefScreen = ({ menuItems, onAddItem, onRemoveItem, onReturn }: {
                     <Text style={formStyles.returnButtonText}>Back to Menu</Text>
                 </TouchableOpacity>
 
-                {/* 1. Add item form */}
+                {/* Add item to the form */}
                 <AddItemForm onSave={onAddItem} />
 
                 <View style={formStyles.separator} />
@@ -169,10 +169,10 @@ const ChefScreen = ({ menuItems, onAddItem, onRemoveItem, onReturn }: {
                                 style={formStyles.removeButton} 
                                 onPress={() => {
                                     Alert.alert(
-                                        "Confirm Removal",
+                                        "Confirm Removal", // Confirmation before removing an item
                                         `Are you sure you want to remove "${item.dishName}"?`,
                                         [
-                                            { text: "Cancel", style: "cancel" },
+                                            { text: "Cancel", style: "cancel" }, // Cancel button
                                             { text: "Remove", style: "destructive", onPress: () => onRemoveItem(item.id) }
                                         ]
                                     );
